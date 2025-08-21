@@ -1,0 +1,61 @@
+<div class="container">
+	<h2>Billing</h2>
+	<form [formGroup]="billingForm" (ngSubmit)="onSubmit()" style="margin-bottom:2rem;">
+		<div>
+			<label>Category</label>
+			<select formControlName="categoryId">
+				<option value="" disabled>Select category</option>
+				<option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}} (₹{{cat.price}})</option>
+			</select>
+		</div>
+		<div>
+			<label>Quantity</label>
+			<input formControlName="quantity" type="number" min="1" />
+		</div>
+		<div>
+			<label>Total Amount</label>
+			<div style="font-weight:bold;">₹{{ getTotalAmount(billingForm.value.categoryId, billingForm.value.quantity) }}</div>
+		</div>
+		<button type="submit" class="btn">Add Billing</button>
+	</form>
+
+	<h3>Billing List</h3>
+	<table style="width:100%;border-collapse:collapse;margin-bottom:2rem;">
+		<thead>
+			<tr style="background:#e3f2fd;">
+				<th style="padding:8px;">Category</th>
+				<th style="padding:8px;">Price</th>
+				<th style="padding:8px;">Quantity</th>
+				<th style="padding:8px;">Total</th>
+				<th style="padding:8px;">Status</th>
+				<th style="padding:8px;">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let bill of billings">
+				<td style="padding:8px;">{{ getCategory(bill.categoryId)?.name }}</td>
+				<td style="padding:8px;">₹{{ getCategory(bill.categoryId)?.price }}</td>
+				<td style="padding:8px;">{{ bill.quantity }}</td>
+				<td style="padding:8px;">₹{{ bill.totalAmount }}</td>
+				<td style="padding:8px;">{{ bill.paymentStatus }}</td>
+				<td style="padding:8px;"><button class="btn" (click)="viewInvoice(bill)">View</button></td>
+			</tr>
+			<tr *ngIf="billings.length === 0">
+				<td colspan="6" style="text-align:center;color:#888;">No billings found.</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<!-- Invoice Modal -->
+	<div *ngIf="showInvoice && selectedBilling" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;z-index:1000;">
+		<div style="background:#fff;padding:2rem 2.5rem;border-radius:16px;box-shadow:var(--shadow);min-width:320px;max-width:90vw;">
+			<h3 style="color:var(--primary);margin-bottom:1rem;">Invoice</h3>
+			<div><b>Category:</b> {{ getCategory(selectedBilling.categoryId)?.name }}</div>
+			<div><b>Price per unit:</b> ₹{{ getCategory(selectedBilling.categoryId)?.price }}</div>
+			<div><b>Quantity:</b> {{ selectedBilling.quantity }}</div>
+			<div><b>Total Amount:</b> ₹{{ selectedBilling.totalAmount }}</div>
+			<div><b>Status:</b> {{ selectedBilling.paymentStatus }}</div>
+			<button class="btn" (click)="closeInvoice()" style="margin-top:1.5rem;">Close</button>
+		</div>
+	</div>
+</div>

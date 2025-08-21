@@ -1,0 +1,22 @@
+
+<div class="container">
+	<h2 style="text-align:center;color:var(--primary);margin-bottom:2rem;">Admin Dashboard</h2>
+	<div style="display:flex;justify-content:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+		<button class="btn" [class.active]="filter==='day'" (click)="filter='day'">Day</button>
+		<button class="btn" [class.active]="filter==='week'" (click)="filter='week'">Week</button>
+		<button class="btn" [class.active]="filter==='month'" (click)="filter='month'">Month</button>
+		<button class="btn" [class.active]="filter==='year'" (click)="filter='year'">Year</button>
+	</div>
+	<div style="display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;">
+		<div style="flex:1 1 300px;max-width:400px;background:#fafdff;border-radius:16px;box-shadow:var(--shadow);padding:2rem;text-align:center;">
+			<h3 style="color:var(--primary);margin-bottom:1rem;">Water Bottle Sales</h3>
+			<div style="font-size:2.5rem;font-weight:bold;color:#00b4d8;">{{waterSummary[filter]}}</div>
+			<div style="color:#888;">Bottles sold ({{filter}})</div>
+		</div>
+		<div style="flex:1 1 300px;max-width:400px;background:#fafdff;border-radius:16px;box-shadow:var(--shadow);padding:2rem;text-align:center;">
+			<h3 style="color:var(--primary);margin-bottom:1rem;">Billing Summary</h3>
+			<div style="font-size:2.5rem;font-weight:bold;color:#00b4d8;">₹{{billingSummary[filter]}}</div>
+			<div style="color:#888;">Total billing ({{filter}})</div>
+		</div>
+	</div>
+</div>

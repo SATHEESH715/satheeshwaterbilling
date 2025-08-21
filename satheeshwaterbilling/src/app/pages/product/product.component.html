@@ -1,0 +1,15 @@
+<div class="container">
+	<h2>Water Product Information</h2>
+	<div style="margin-bottom:2rem;">
+		<h3>Gallery</h3>
+		<div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+			<img *ngFor="let img of images" [src]="img" alt="Water product" style="height:120px; border-radius:12px; box-shadow:0 2px 8px #cce3f6; background:#fafdff;" />
+		</div>
+	</div>
+	<div style="margin-bottom:2rem;">
+		<h3>Current Updates / Notices</h3>
+		<ul style="padding-left:1.2rem;">
+			<li *ngFor="let note of updates" style="margin-bottom:0.5rem; color:#0077c8; font-weight:500;">{{ note }}</li>
+		</ul>
+	</div>
+</div>

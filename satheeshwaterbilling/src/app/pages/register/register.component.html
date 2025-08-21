@@ -1,0 +1,33 @@
+<div class="container">
+	<h2>Register</h2>
+	<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+		<div>
+			<label>Full Name</label>
+			<input formControlName="fullName" type="text" placeholder="Enter your full name" />
+		</div>
+		<div>
+			<label>Email</label>
+			<input formControlName="email" type="email" placeholder="Enter your email" />
+		</div>
+		<div>
+			<label>Mobile Number</label>
+			<input formControlName="mobile" type="text" maxlength="10" placeholder="Enter your mobile number" />
+		</div>
+		<div>
+			<label>Password</label>
+			<input formControlName="password" type="password" placeholder="Create a password" />
+		</div>
+		<div>
+			<label>Confirm Password</label>
+			<input formControlName="confirmPassword" type="password" placeholder="Confirm your password" />
+		</div>
+			<div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched" class="error">
+				Passwords do not match.
+			</div>
+		<div *ngIf="error" class="error">{{ error }}</div>
+		<button type="submit" [disabled]="loading">{{ loading ? 'Registering...' : 'Register' }}</button>
+	</form>
+	<div class="links">
+		<a routerLink="/login">Already have an account? Login</a>
+	</div>
+</div>
